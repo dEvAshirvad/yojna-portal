@@ -10,15 +10,25 @@ import { FixedToolbarFeature, HeadingFeature, lexicalEditor } from '@payloadcms/
 import { searchFields } from '@/search/fieldOverrides'
 import { beforeSyncWithSearch } from '@/search/beforeSync'
 
-import { Page, Post } from '@/payload-types'
+import { Page, Post, Yojna } from '@/payload-types'
 import { getServerSideURL } from '@/utilities/getURL'
 
-const generateTitle: GenerateTitle<Post | Page> = ({ doc }) => {
-  return doc?.title ? `${doc.title} | Payload Website Template` : 'Payload Website Template'
+const siteTitle = 'Yojna Portal | Raipur District Government'
+
+const generateTitle: GenerateTitle<Post | Page | Yojna> = ({ doc }) => {
+  return doc?.title ? `${doc.title} | ${siteTitle}` : siteTitle
 }
 
-const generateURL: GenerateURL<Post | Page> = ({ doc }) => {
+const generateURL: GenerateURL<Post | Page | Yojna> = ({ collectionSlug, doc }) => {
   const url = getServerSideURL()
+
+  if (collectionSlug === 'posts') {
+    return doc?.slug ? `${url}/posts/${doc.slug}` : `${url}/posts`
+  }
+
+  if (collectionSlug === 'yojnas') {
+    return doc?.slug ? `${url}/yojnas/${doc.slug}` : `${url}/yojnas`
+  }
 
   return doc?.slug ? `${url}/${doc.slug}` : url
 }
@@ -81,7 +91,7 @@ export const plugins: Plugin[] = [
     },
   }),
   searchPlugin({
-    collections: ['posts'],
+    collections: ['posts', 'yojnas'],
     beforeSync: beforeSyncWithSearch,
     searchOverrides: {
       fields: ({ defaultFields }) => {

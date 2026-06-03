@@ -69,6 +69,7 @@ export interface Config {
   collections: {
     pages: Page;
     posts: Post;
+    yojnas: Yojna;
     media: Media;
     categories: Category;
     users: User;
@@ -91,6 +92,7 @@ export interface Config {
   collectionsSelect: {
     pages: PagesSelect<false> | PagesSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
+    yojnas: YojnasSelect<false> | YojnasSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
@@ -396,6 +398,12 @@ export interface FolderInterface {
 export interface Category {
   id: number;
   title: string;
+  /**
+   * Short public description shown on category cards and filters.
+   */
+  description?: string | null;
+  icon?: ('heart-pulse' | 'graduation-cap' | 'users' | 'leaf' | 'landmark' | 'handshake' | 'baby' | 'palette') | null;
+  color?: ('primary' | 'education' | 'women' | 'agriculture' | 'governance' | 'welfare' | 'child' | 'culture') | null;
   /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
@@ -783,6 +791,103 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "yojnas".
+ */
+export interface Yojna {
+  id: number;
+  title: string;
+  heroImage?: (number | null) | Media;
+  summary: string;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  eligibility?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  benefits?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  howToApply?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  category: number | Category;
+  department: string;
+  beneficiaries?: string | null;
+  status: 'active' | 'upcoming' | 'closed';
+  launchDate?: string | null;
+  /**
+   * Official application or information URL.
+   */
+  externalLink?: string | null;
+  relatedNews?: (number | Post)[] | null;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+    description?: string | null;
+  };
+  publishedAt?: string | null;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -834,10 +939,15 @@ export interface Search {
   id: number;
   title?: string | null;
   priority?: number | null;
-  doc: {
-    relationTo: 'posts';
-    value: number | Post;
-  };
+  doc:
+    | {
+        relationTo: 'posts';
+        value: number | Post;
+      }
+    | {
+        relationTo: 'yojnas';
+        value: number | Yojna;
+      };
   slug?: string | null;
   meta?: {
     title?: string | null;
@@ -978,6 +1088,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'posts';
         value: number | Post;
+      } | null)
+    | ({
+        relationTo: 'yojnas';
+        value: number | Yojna;
       } | null)
     | ({
         relationTo: 'media';
@@ -1221,6 +1335,39 @@ export interface PostsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "yojnas_select".
+ */
+export interface YojnasSelect<T extends boolean = true> {
+  title?: T;
+  heroImage?: T;
+  summary?: T;
+  content?: T;
+  eligibility?: T;
+  benefits?: T;
+  howToApply?: T;
+  category?: T;
+  department?: T;
+  beneficiaries?: T;
+  status?: T;
+  launchDate?: T;
+  externalLink?: T;
+  relatedNews?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        description?: T;
+      };
+  publishedAt?: T;
+  generateSlug?: T;
+  slug?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
@@ -1319,6 +1466,9 @@ export interface MediaSelect<T extends boolean = true> {
  */
 export interface CategoriesSelect<T extends boolean = true> {
   title?: T;
+  description?: T;
+  icon?: T;
+  color?: T;
   generateSlug?: T;
   slug?: T;
   parent?: T;
@@ -1761,6 +1911,10 @@ export interface TaskSchedulePublish {
       | ({
           relationTo: 'posts';
           value: number | Post;
+        } | null)
+      | ({
+          relationTo: 'yojnas';
+          value: number | Yojna;
         } | null);
     global?: string | null;
     user?: (number | null) | User;

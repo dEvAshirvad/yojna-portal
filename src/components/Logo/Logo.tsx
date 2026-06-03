@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import { Landmark } from 'lucide-react'
 import React from 'react'
 
 interface Props {
@@ -8,22 +9,21 @@ interface Props {
 }
 
 export const Logo = (props: Props) => {
-  const { loading: loadingFromProps, priority: priorityFromProps, className } = props
-
-  const loading = loadingFromProps || 'lazy'
-  const priority = priorityFromProps || 'low'
+  const { className } = props
 
   return (
-    /* eslint-disable @next/next/no-img-element */
-    <img
-      alt="Payload Logo"
-      width={193}
-      height={34}
-      loading={loading}
-      fetchPriority={priority}
-      decoding="async"
-      className={clsx('max-w-[9.375rem] w-full h-[34px]', className)}
-      src="https://raw.githubusercontent.com/payloadcms/payload/3.x/packages/ui/src/assets/payload-logo-light.svg"
-    />
+    <span className={clsx('flex items-center gap-3', className)}>
+      <span className="inline-flex size-11 items-center justify-center rounded-lg border border-border bg-primary/10 text-primary">
+        <Landmark aria-hidden className="size-6" />
+      </span>
+      <span className="leading-tight">
+        <span className="block text-xl font-bold tracking-tight text-current">
+          Raipur District Government
+        </span>
+        <span className="block text-xs font-semibold text-current/70">
+          Chhattisgarh, India
+        </span>
+      </span>
+    </span>
   )
 }

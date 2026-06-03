@@ -9,12 +9,14 @@ import { imageHero1 } from './image-hero-1'
 import { post1 } from './post-1'
 import { post2 } from './post-2'
 import { post3 } from './post-3'
+import { yojnaCategories } from './yojnas'
 
 const collections: CollectionSlug[] = [
   'categories',
   'media',
   'pages',
   'posts',
+  'yojnas',
   'forms',
   'form-submissions',
   'search',
@@ -22,7 +24,46 @@ const collections: CollectionSlug[] = [
 
 const globals: GlobalSlug[] = ['header', 'footer']
 
-const categories = ['Technology', 'News', 'Finance', 'Design', 'Software', 'Engineering']
+const toSlug = (value: string) =>
+  value
+    .trim()
+    .toLowerCase()
+    .replace(/&/g, 'and')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+
+const richText = (text: string) =>
+  ({
+    root: {
+      type: 'root',
+      children: [
+        {
+          type: 'paragraph',
+          children: [
+            {
+              type: 'text',
+              detail: 0,
+              format: 0,
+              mode: 'normal',
+              style: '',
+              text,
+              version: 1,
+            },
+          ],
+          direction: 'ltr' as const,
+          format: '' as const,
+          indent: 0,
+          textFormat: 0,
+          textStyle: '',
+          version: 1,
+        },
+      ],
+      direction: 'ltr' as const,
+      format: '' as const,
+      indent: 0,
+      version: 1,
+    },
+  })
 
 // Next.js revalidation errors are normal when seeding the database without a server running
 // i.e. running `yarn seed` locally instead of using the admin UI within an active app
@@ -127,16 +168,26 @@ export const seed = async ({
       data: imageHero1,
       file: hero1Buffer,
     }),
-    categories.map((category) =>
+  ])
+
+  payload.logger.info(`— Seeding yojna categories...`)
+
+  const categoryDocs = await Promise.all(
+    yojnaCategories.map((category) =>
       payload.create({
         collection: 'categories',
         data: {
-          title: category,
-          slug: category,
+          color: category.color,
+          description: category.description,
+          icon: category.icon,
+          slug: category.slug,
+          title: category.title,
         },
       }),
     ),
-  ])
+  )
+
+  const categoryByTitle = new Map(categoryDocs.map((category) => [category.title, category]))
 
   payload.logger.info(`— Seeding posts...`)
 
@@ -192,6 +243,64 @@ export const seed = async ({
     },
   })
 
+  payload.logger.info(`— Seeding yojnas...`)
+
+  let schemeIndex = 0
+
+  for (const category of yojnaCategories) {
+    const categoryDoc = categoryByTitle.get(category.title)
+
+    if (!categoryDoc) {
+      continue
+    }
+
+    for (const schemeTitle of category.schemes) {
+      const status = schemeIndex % 11 === 0 ? 'upcoming' : schemeIndex % 17 === 0 ? 'closed' : 'active'
+      const summary = `${schemeTitle} is a Raipur District initiative under ${category.title}, designed to improve citizen access to government support and public services.`
+
+      await payload.create({
+        collection: 'yojnas',
+        context: {
+          disableRevalidate: true,
+        },
+        data: {
+          _status: 'published',
+          beneficiaries: 'Citizens and eligible families of Raipur District.',
+          benefits: richText(
+            `${schemeTitle} provides targeted assistance, awareness, service access, and district-level support for eligible beneficiaries.`,
+          ),
+          category: categoryDoc.id,
+          content: richText(
+            `${schemeTitle} is part of the Raipur District Yojna Portal catalog. The district administration can update this page with detailed objectives, coverage, documents, and department-specific instructions.`,
+          ),
+          department: 'Raipur District Administration',
+          eligibility: richText(
+            'Eligibility depends on the scheme guidelines published by the concerned department. Residents should review official instructions before applying.',
+          ),
+          externalLink: status === 'active' ? 'https://raipur.gov.in/' : undefined,
+          heroImage: imageHomeDoc.id,
+          howToApply: richText(
+            'Visit the official Raipur District portal or contact the scheme helpdesk. Keep identity, residence, and department-specific documents ready before submitting an application.',
+          ),
+          launchDate: new Date(2023, schemeIndex % 12, (schemeIndex % 24) + 1).toISOString(),
+          meta: {
+            description: summary,
+            image: imageHomeDoc.id,
+            title: schemeTitle,
+          },
+          relatedNews: [post1Doc.id, post2Doc.id],
+          slug: toSlug(schemeTitle),
+          status,
+          summary,
+          title: schemeTitle,
+        },
+        depth: 0,
+      })
+
+      schemeIndex += 1
+    }
+  }
+
   payload.logger.info(`— Seeding contact form...`)
 
   const contactForm = await payload.create({
@@ -202,7 +311,7 @@ export const seed = async ({
 
   payload.logger.info(`— Seeding pages...`)
 
-  const [_, contactPage] = await Promise.all([
+  await Promise.all([
     payload.create({
       collection: 'pages',
       depth: 0,
@@ -225,18 +334,22 @@ export const seed = async ({
           {
             link: {
               type: 'custom',
-              label: 'Posts',
-              url: '/posts',
+              label: 'Home',
+              url: '/',
             },
           },
           {
             link: {
-              type: 'reference',
-              label: 'Contact',
-              reference: {
-                relationTo: 'pages',
-                value: contactPage.id,
-              },
+              type: 'custom',
+              label: 'Schemes',
+              url: '/yojnas',
+            },
+          },
+          {
+            link: {
+              type: 'custom',
+              label: 'News',
+              url: '/posts',
             },
           },
         ],
@@ -249,24 +362,22 @@ export const seed = async ({
           {
             link: {
               type: 'custom',
-              label: 'Admin',
-              url: '/admin',
+              label: 'Website Policies',
+              url: '/website-policies',
             },
           },
           {
             link: {
               type: 'custom',
-              label: 'Source Code',
-              newTab: true,
-              url: 'https://github.com/payloadcms/payload/tree/3.x/templates/website',
+              label: 'Contact Us',
+              url: '/contact',
             },
           },
           {
             link: {
               type: 'custom',
-              label: 'Payload',
-              newTab: true,
-              url: 'https://payloadcms.com/',
+              label: 'Sitemap',
+              url: '/sitemap.xml',
             },
           },
         ],

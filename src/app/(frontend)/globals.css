@@ -44,7 +44,7 @@
   --breakpoint-xl: 80rem;
   --breakpoint-2xl: 86rem;
   --font-mono: var(--font-geist-mono);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-public-sans);
 }
 
 @layer utilities {
@@ -87,80 +87,104 @@
 }
 
 :root {
-  --background: oklch(100% 0 0deg);
-  --foreground: oklch(14.5% 0 0deg);
-  --card: oklch(96.5% 0.005 265deg);
-  --card-foreground: oklch(14.5% 0 0deg);
-  --popover: oklch(100% 0 0deg);
-  --popover-foreground: oklch(14.5% 0 0deg);
-  --primary: oklch(20.5% 0 0deg);
-  --primary-foreground: oklch(98.5% 0 0deg);
-  --secondary: oklch(97% 0 0deg);
-  --secondary-foreground: oklch(20.5% 0 0deg);
-  --muted: oklch(97% 0 0deg);
-  --muted-foreground: oklch(55.6% 0 0deg);
-  --accent: oklch(97% 0 0deg);
-  --accent-foreground: oklch(20.5% 0 0deg);
-  --destructive: oklch(57.7% 0.245 27.325deg);
-  --destructive-foreground: oklch(57.7% 0.245 27.325deg);
-  --border: oklch(92.2% 0 0deg);
-  --input: oklch(92.2% 0 0deg);
-  --ring: oklch(70.8% 0 0deg);
-  --chart-1: oklch(64.6% 0.222 41.116deg);
-  --chart-2: oklch(60% 0.118 184.704deg);
-  --chart-3: oklch(39.8% 0.07 227.392deg);
-  --chart-4: oklch(82.8% 0.189 84.429deg);
-  --chart-5: oklch(76.9% 0.188 70.08deg);
-  --radius: 0.625rem;
-  --sidebar: oklch(98.5% 0 0deg);
-  --sidebar-foreground: oklch(14.5% 0 0deg);
-  --sidebar-primary: oklch(20.5% 0 0deg);
-  --sidebar-primary-foreground: oklch(98.5% 0 0deg);
-  --sidebar-accent: oklch(97% 0 0deg);
-  --sidebar-accent-foreground: oklch(20.5% 0 0deg);
-  --sidebar-border: oklch(92.2% 0 0deg);
-  --sidebar-ring: oklch(70.8% 0 0deg);
-  --success: oklch(78% 0.08 200deg);
-  --warning: oklch(89% 0.1 75deg);
-  --error: oklch(75% 0.15 25deg);
+  --background: #f7f9ff;
+  --foreground: #181c20;
+  --card: #ffffff;
+  --card-foreground: #181c20;
+  --popover: #ffffff;
+  --popover-foreground: #181c20;
+  --primary: #138808;
+  --primary-foreground: #ffffff;
+  --secondary: #fe9832;
+  --secondary-foreground: #2e1500;
+  --muted: #ebeef3;
+  --muted-foreground: #3f4a3a;
+  --accent: #fff5eb;
+  --accent-foreground: #683700;
+  --destructive: #d32f2f;
+  --destructive-foreground: #ffffff;
+  --border: #becab5;
+  --input: #6f7a68;
+  --ring: #056c00;
+  --chart-1: #138808;
+  --chart-2: #fe9832;
+  --chart-3: #235da4;
+  --chart-4: #72de5c;
+  --chart-5: #8f4e00;
+  --radius: 0.5rem;
+  --sidebar: #f1f4f9;
+  --sidebar-foreground: #181c20;
+  --sidebar-primary: #138808;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #fff5eb;
+  --sidebar-accent-foreground: #683700;
+  --sidebar-border: #becab5;
+  --sidebar-ring: #056c00;
+  --success: #138808;
+  --warning: #ff9933;
+  --error: #d32f2f;
+  --status-active: #138808;
+  --status-upcoming: #ff9933;
+  --status-closed: #6f7a68;
+  --civic-surface: #f7f9ff;
+  --civic-surface-low: #f1f4f9;
+  --civic-surface-container: #ebeef3;
+  --civic-blue: #235da4;
+  --civic-blue-foreground: #ffffff;
+  --category-health: #138808;
+  --category-education: #235da4;
+  --category-women: #8f4e00;
+  --category-agriculture: #056c00;
+  --category-governance: #004b91;
+  --category-welfare: #fe9832;
+  --category-child: #72de5c;
+  --category-culture: #683700;
 }
 
 [data-theme='dark'] {
-  --background: oklch(14.5% 0 0deg);
-  --foreground: oklch(98.5% 0 0deg);
-  --card: oklch(17% 0 0deg);
-  --card-foreground: oklch(98.5% 0 0deg);
-  --popover: oklch(14.5% 0 0deg);
-  --popover-foreground: oklch(98.5% 0 0deg);
-  --primary: oklch(98.5% 0 0deg);
-  --primary-foreground: oklch(20.5% 0 0deg);
-  --secondary: oklch(26.9% 0 0deg);
-  --secondary-foreground: oklch(98.5% 0 0deg);
-  --muted: oklch(26.9% 0 0deg);
-  --muted-foreground: oklch(70.8% 0 0deg);
-  --accent: oklch(26.9% 0 0deg);
-  --accent-foreground: oklch(98.5% 0 0deg);
-  --destructive: oklch(39.6% 0.141 25.723deg);
-  --destructive-foreground: oklch(63.7% 0.237 25.331deg);
-  --border: oklch(26.9% 0 0deg);
-  --input: oklch(26.9% 0 0deg);
-  --ring: oklch(43.9% 0 0deg);
-  --chart-1: oklch(48.8% 0.243 264.376deg);
-  --chart-2: oklch(69.6% 0.17 162.48deg);
-  --chart-3: oklch(76.9% 0.188 70.08deg);
-  --chart-4: oklch(62.7% 0.265 303.9deg);
-  --chart-5: oklch(64.5% 0.246 16.439deg);
-  --sidebar: oklch(20.5% 0 0deg);
-  --sidebar-foreground: oklch(98.5% 0 0deg);
-  --sidebar-primary: oklch(48.8% 0.243 264.376deg);
-  --sidebar-primary-foreground: oklch(98.5% 0 0deg);
-  --sidebar-accent: oklch(26.9% 0 0deg);
-  --sidebar-accent-foreground: oklch(98.5% 0 0deg);
-  --sidebar-border: oklch(26.9% 0 0deg);
-  --sidebar-ring: oklch(43.9% 0 0deg);
-  --success: oklch(28% 0.1 200deg);
-  --warning: oklch(35% 0.08 70deg);
-  --error: oklch(45% 0.1 25deg);
+  --background: #121611;
+  --foreground: #eef1f6;
+  --card: #1c211b;
+  --card-foreground: #eef1f6;
+  --popover: #1c211b;
+  --popover-foreground: #eef1f6;
+  --primary: #72de5c;
+  --primary-foreground: #012200;
+  --secondary: #ffb77a;
+  --secondary-foreground: #2e1500;
+  --muted: #2d3135;
+  --muted-foreground: #becab5;
+  --accent: #2d3135;
+  --accent-foreground: #eef1f6;
+  --destructive: #ffb4ab;
+  --destructive-foreground: #690005;
+  --border: #3f4a3a;
+  --input: #6f7a68;
+  --ring: #72de5c;
+  --chart-1: #72de5c;
+  --chart-2: #ffb77a;
+  --chart-3: #a7c8ff;
+  --chart-4: #8dfc75;
+  --chart-5: #ffdcc2;
+  --sidebar: #1c211b;
+  --sidebar-foreground: #eef1f6;
+  --sidebar-primary: #72de5c;
+  --sidebar-primary-foreground: #012200;
+  --sidebar-accent: #2d3135;
+  --sidebar-accent-foreground: #eef1f6;
+  --sidebar-border: #3f4a3a;
+  --sidebar-ring: #72de5c;
+  --success: #72de5c;
+  --warning: #ffb77a;
+  --error: #ffb4ab;
+  --status-active: #72de5c;
+  --status-upcoming: #ffb77a;
+  --status-closed: #becab5;
+  --civic-surface: #121611;
+  --civic-surface-low: #1c211b;
+  --civic-surface-container: #2d3135;
+  --civic-blue: #a7c8ff;
+  --civic-blue-foreground: #001b3c;
 }
 
 @theme inline {
@@ -203,6 +227,22 @@
   --color-success: var(--success);
   --color-warning: var(--warning);
   --color-error: var(--error);
+  --color-status-active: var(--status-active);
+  --color-status-upcoming: var(--status-upcoming);
+  --color-status-closed: var(--status-closed);
+  --color-civic-surface: var(--civic-surface);
+  --color-civic-surface-low: var(--civic-surface-low);
+  --color-civic-surface-container: var(--civic-surface-container);
+  --color-civic-blue: var(--civic-blue);
+  --color-civic-blue-foreground: var(--civic-blue-foreground);
+  --color-category-health: var(--category-health);
+  --color-category-education: var(--category-education);
+  --color-category-women: var(--category-women);
+  --color-category-agriculture: var(--category-agriculture);
+  --color-category-governance: var(--category-governance);
+  --color-category-welfare: var(--category-welfare);
+  --color-category-child: var(--category-child);
+  --color-category-culture: var(--category-culture);
 }
 
 @layer base {
@@ -210,7 +250,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground min-h-[100vh] flex flex-col;
+    @apply bg-background text-foreground min-h-screen flex flex-col;
   }
 }
 

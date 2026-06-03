@@ -30,10 +30,19 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   }, [headerTheme])
 
   return (
-    <header className="container relative z-20   " {...(theme ? { 'data-theme': theme } : {})}>
-      <div className="py-8 flex justify-between">
-        <Link href="/">
-          <Logo loading="eager" priority="high" className="invert dark:invert-0" />
+    <header
+      className="sticky top-0 z-30 border-b border-border bg-background/95 backdrop-blur"
+      {...(theme ? { 'data-theme': theme } : {})}
+    >
+      <div className="bg-[#20252a] text-white">
+        <div className="container flex h-7 items-center justify-between text-xs">
+          <span>Government of Chhattisgarh</span>
+          <span className="hidden md:inline">Skip to Main Content · English</span>
+        </div>
+      </div>
+      <div className="container flex flex-col gap-4 py-4 md:flex-row md:items-center md:justify-between">
+        <Link aria-label="Raipur District Government home" href="/">
+          <Logo loading="eager" priority="high" />
         </Link>
         <HeaderNav data={data} />
       </div>

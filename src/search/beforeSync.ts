@@ -5,7 +5,8 @@ export const beforeSyncWithSearch: BeforeSync = async ({ req, originalDoc, searc
     doc: { relationTo: collection },
   } = searchDoc
 
-  const { slug, id, categories, title, meta } = originalDoc
+  const { slug, id, categories, category, title, summary, meta } = originalDoc
+  const sourceCategories = categories || (category ? [category] : [])
 
   const modifiedDoc: DocToSync = {
     ...searchDoc,
@@ -14,26 +15,26 @@ export const beforeSyncWithSearch: BeforeSync = async ({ req, originalDoc, searc
       ...meta,
       title: meta?.title || title,
       image: meta?.image?.id || meta?.image,
-      description: meta?.description,
+      description: meta?.description || summary,
     },
     categories: [],
   }
 
-  if (categories && Array.isArray(categories) && categories.length > 0) {
+  if (Array.isArray(sourceCategories) && sourceCategories.length > 0) {
     const populatedCategories: { id: string | number; title: string }[] = []
-    for (const category of categories) {
-      if (!category) {
+    for (const eachCategory of sourceCategories) {
+      if (!eachCategory) {
         continue
       }
 
-      if (typeof category === 'object') {
-        populatedCategories.push(category)
+      if (typeof eachCategory === 'object') {
+        populatedCategories.push(eachCategory)
         continue
       }
 
       const doc = await req.payload.findByID({
         collection: 'categories',
-        id: category,
+        id: eachCategory,
         disableErrors: true,
         depth: 0,
         select: { title: true },
