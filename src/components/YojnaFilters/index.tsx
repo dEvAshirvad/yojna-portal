@@ -15,11 +15,13 @@ export const YojnaFilters: React.FC<{
   return (
     <form
       action="/yojnas"
-      className="rounded-lg border border-border bg-card p-4 shadow-[0_8px_24px_rgba(24,28,32,0.03)]"
+      className="rounded-lg border border-border bg-card py-3 px-4 shadow-[0_8px_24px_rgba(24,28,32,0.03)]"
     >
       <div className="grid gap-4 md:grid-cols-[1fr_1fr_1.2fr_auto] md:items-end">
-        <label className="space-y-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-          Category
+        <div className="space-y-3">
+          <label className="space-y-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+            Category
+          </label>
           <select
             className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
             defaultValue={selectedCategory || ''}
@@ -32,10 +34,12 @@ export const YojnaFilters: React.FC<{
               </option>
             ))}
           </select>
-        </label>
+        </div>
 
-        <label className="space-y-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-          Status
+        <div className="space-y-3">
+          <label className="space-y-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+            Status
+          </label>
           <select
             className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
             defaultValue={selectedStatus || ''}
@@ -46,10 +50,12 @@ export const YojnaFilters: React.FC<{
             <option value="upcoming">Upcoming</option>
             <option value="closed">Closed</option>
           </select>
-        </label>
+        </div>
 
-        <label className="space-y-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-          Search Schemes
+        <div className="space-y-3">
+          <label className="space-y-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+            Search Schemes
+          </label>
           <span className="relative block">
             <Search
               aria-hidden
@@ -62,7 +68,7 @@ export const YojnaFilters: React.FC<{
               placeholder="Search by scheme name or keyword"
             />
           </span>
-        </label>
+        </div>
 
         <Button className="h-10" type="submit">
           <Filter aria-hidden className="size-4" />

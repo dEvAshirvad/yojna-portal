@@ -1,6 +1,5 @@
+'use client'
 import clsx from 'clsx'
-import { Landmark } from 'lucide-react'
-import React from 'react'
 
 interface Props {
   className?: string
@@ -13,15 +12,21 @@ export const Logo = (props: Props) => {
 
   return (
     <span className={clsx('flex items-center gap-3', className)}>
-      <span className="inline-flex size-11 items-center justify-center rounded-lg border border-border bg-primary/10 text-primary">
-        <Landmark aria-hidden className="size-6" />
+      <span className="inline-flex size-14 items-center justify-center rounded-full border border-outline-variant bg-inverse-surface text-inverse-on-surface shadow-[0_2px_8px_rgba(24,28,32,0.12)]">
+        <img
+          src="/logo.png"
+          alt="Raipur District Logo"
+          width={48}
+          height={48}
+          className="rounded-full"
+        />
       </span>
-      <span className="leading-tight">
-        <span className="block text-xl font-bold tracking-tight text-current">
-          Raipur District Government
+      <span className="leading-none">
+        <span className="block text-xl font-extrabold uppercase tracking-none text-on-surface">
+          Raipur District
         </span>
-        <span className="block text-xs font-semibold text-current/70">
-          Chhattisgarh, India
+        <span className="block text-xs font-semibold text-on-surface-variant">
+          Government of Chhattisgarh
         </span>
       </span>
     </span>

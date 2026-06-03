@@ -22,3 +22,4 @@ node_modules/
 /playwright/.cache/
 
 yojna-portal.db
+graphify-out/

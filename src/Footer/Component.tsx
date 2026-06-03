@@ -11,24 +11,22 @@ export async function Footer() {
   const navItems = footerData?.navItems || []
 
   return (
-    <footer className="mt-auto border-t-4 border-primary bg-[#20252a] text-white">
-      <div className="container flex flex-col gap-8 py-8 md:flex-row md:justify-between">
-        <Link className="flex items-start" href="/">
-          <Logo />
-        </Link>
+    <footer className="mt-auto border-t-4 border-primary">
+      <div className="container flex flex-col py-2 md:flex-row md:justify-between">
+        <p className="text-xs leading-6">
+          © 2024 Raipur District Administration, Government of Chhattisgarh.
+        </p>
+        <p className="text-xs leading-6">
+          All Rights Reserved. Developed and Hosted by National Informatics Centre.
+        </p>
 
-        <div className="max-w-xl text-sm leading-6 text-white/75">
-          <p>© 2024 Raipur District Administration, Government of Chhattisgarh.</p>
-          <p>All Rights Reserved. Developed and Hosted by National Informatics Centre.</p>
-        </div>
-
-        <div className="flex flex-col items-start gap-4 md:items-end">
+        {/* <div className="flex flex-col items-start gap-4 md:items-end">
           <nav className="flex flex-col gap-3 text-sm md:flex-row">
             {navItems.map(({ link }, i) => {
-              return <CMSLink className="text-white/80 hover:text-white" key={i} {...link} />
+              return <CMSLink className="" key={i} {...link} />
             })}
           </nav>
-        </div>
+        </div> */}
       </div>
     </footer>
   )

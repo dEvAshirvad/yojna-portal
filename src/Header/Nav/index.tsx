@@ -2,39 +2,34 @@
 
 import React from 'react'
 
-import type { Header as HeaderType } from '@/payload-types'
-
-import { CMSLink } from '@/components/Link'
 import Link from 'next/link'
-import { SearchIcon } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 
-export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
-  const navItems = data?.navItems || []
+const fallbackNavItems = [
+  { label: 'Home', url: '/' },
+  { label: 'Yojnas', url: '/yojnas' },
+  { label: 'News', url: '/posts' },
+]
+
+export const HeaderNav: React.FC = () => {
   const pathname = usePathname()
 
   return (
-    <nav className="flex flex-wrap items-center gap-5 text-sm font-semibold">
-      {navItems.map(({ link }, i) => {
-        const isActive = link.url === '/' ? pathname === '/' : Boolean(link.url && pathname.startsWith(link.url))
+    <nav className="flex h-11 flex-wrap items-center gap-7 text-sm font-semibold">
+      {fallbackNavItems.map((item) => {
+        const url = item.url
+        const isActive = url === '/' ? pathname === '/' : pathname.startsWith(url)
 
         return (
-          <CMSLink
-            className={
-              isActive
-                ? 'border-b-2 border-primary pb-1 text-primary'
-                : 'pb-1 text-foreground hover:text-primary'
-            }
-            key={i}
-            {...link}
-            appearance="inline"
-          />
+          <Link
+            className={isActive ? 'text-primary' : 'text-on-surface hover:text-primary'}
+            href={url}
+            key={item.label}
+          >
+            {item.label}
+          </Link>
         )
       })}
-      <Link className="text-foreground hover:text-primary" href="/search">
-        <span className="sr-only">Search</span>
-        <SearchIcon className="size-5" />
-      </Link>
     </nav>
   )
 }

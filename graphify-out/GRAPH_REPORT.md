@@ -1,12 +1,12 @@
 # Graph Report - yojna-portal  (2026-06-03)
 
 ## Corpus Check
-- 179 files · ~205,167 words
+- 180 files · ~205,179 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 350 nodes · 223 edges · 20 communities detected
-- Extraction: 81% EXTRACTED · 19% INFERRED · 0% AMBIGUOUS · INFERRED: 42 edges (avg confidence: 0.81)
+- 356 nodes · 229 edges · 20 communities detected
+- Extraction: 81% EXTRACTED · 19% INFERRED · 0% AMBIGUOUS · INFERRED: 43 edges (avg confidence: 0.81)
 - Token cost: 0 input · 0 output
 
 ## Community Hubs (Navigation)
@@ -25,9 +25,9 @@
 - [[_COMMUNITY_Community 12|Community 12]]
 - [[_COMMUNITY_Community 14|Community 14]]
 - [[_COMMUNITY_Community 15|Community 15]]
-- [[_COMMUNITY_Community 16|Community 16]]
 - [[_COMMUNITY_Community 17|Community 17]]
 - [[_COMMUNITY_Community 18|Community 18]]
+- [[_COMMUNITY_Community 19|Community 19]]
 - [[_COMMUNITY_Community 150|Community 150]]
 - [[_COMMUNITY_Community 151|Community 151]]
 
@@ -98,16 +98,16 @@ Cohesion: 0.25
 Nodes (8): Agents Guide, Payload CMS Skill, Footer Global, Globals, Header Global, Payload CMS, Payload Config, Payload Website Template
 
 ### Community 9 - "Community 9"
+Cohesion: 0.29
+Nodes (3): Footer(), Header(), getCachedGlobal()
+
+### Community 10 - "Community 10"
 Cohesion: 0.38
 Nodes (4): deepMerge(), isObject(), link(), linkGroup()
 
-### Community 10 - "Community 10"
-Cohesion: 0.4
-Nodes (2): ThemeSelector(), useTheme()
-
 ### Community 11 - "Community 11"
 Cohesion: 0.4
-Nodes (2): Header(), getCachedGlobal()
+Nodes (2): ThemeSelector(), useTheme()
 
 ### Community 12 - "Community 12"
 Cohesion: 0.4
@@ -121,15 +121,15 @@ Nodes (2): getMediaUrl(), ImageMedia()
 Cohesion: 0.5
 Nodes (2): Search(), useDebounce()
 
-### Community 16 - "Community 16"
+### Community 17 - "Community 17"
 Cohesion: 0.83
 Nodes (3): revalidateDelete(), revalidateYojna(), revalidateYojnaPaths()
 
-### Community 17 - "Community 17"
+### Community 18 - "Community 18"
 Cohesion: 0.83
 Nodes (4): Hero Background — Abstract Blue/Amber Gradient, Post 1 Thumbnail — Abstract Curved Gradient, Post 2 Thumbnail — Abstract Curved Gradient, Post 3 Thumbnail — Abstract Curved Gradient
 
-### Community 18 - "Community 18"
+### Community 19 - "Community 19"
 Cohesion: 0.67
 Nodes (1): RowLabel()
 
@@ -150,15 +150,13 @@ Nodes (1): Docker Setup
   These have ≤1 connection - possible missing edges or undocumented components.
 - **Thin community `Community 7`** (9 nodes): `HeaderThemeProvider()`, `useHeaderTheme()`, `PageClient()`, `page.client.tsx`, `page.client.tsx`, `page.client.tsx`, `page.client.tsx`, `page.client.tsx`, `index.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 10`** (5 nodes): `ThemeProvider()`, `ThemeSelector()`, `useTheme()`, `index.tsx`, `index.tsx`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 11`** (5 nodes): `Header()`, `getCachedGlobal()`, `getGlobal()`, `Component.tsx`, `getGlobals.ts`
+- **Thin community `Community 11`** (5 nodes): `ThemeProvider()`, `ThemeSelector()`, `useTheme()`, `index.tsx`, `index.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 - **Thin community `Community 14`** (4 nodes): `getMediaUrl()`, `ImageMedia()`, `index.tsx`, `getMediaUrl.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 - **Thin community `Community 15`** (4 nodes): `Search()`, `Component.tsx`, `useDebounce.ts`, `useDebounce()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 18`** (3 nodes): `RowLabel()`, `RowLabel.tsx`, `RowLabel.tsx`
+- **Thin community `Community 19`** (3 nodes): `RowLabel()`, `RowLabel.tsx`, `RowLabel.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 - **Thin community `Community 150`** (1 nodes): `Lexical Editor`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.

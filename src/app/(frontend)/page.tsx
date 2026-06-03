@@ -13,6 +13,7 @@ import {
 } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
+import DotGrid from '@/components/DotGrid'
 
 import { YojnaCard } from '@/components/YojnaCard'
 import { Button } from '@/components/ui/button'
@@ -125,8 +126,24 @@ export default async function HomePage() {
 
   return (
     <main>
-      <section className="border-b border-border bg-civic-surface">
-        <div className="container py-14 text-center md:py-20">
+      <section className="relative isolate overflow-hidden border-b border-border bg-civic-surface">
+        <div className="absolute inset-0 -z-10 opacity-25">
+          <DotGrid
+            dotSize={4}
+            gap={50}
+            baseColor="#056c00"
+            activeColor="#056c00"
+            proximity={150}
+            speedTrigger={100}
+            shockRadius={250}
+            shockStrength={5}
+            maxSpeed={5000}
+            resistance={750}
+            returnDuration={1.5}
+            style={{ height: '100%', width: '100%' }}
+          />
+        </div>
+        <div className="container relative py-14 text-center md:py-20">
           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-primary">
             Government of Chhattisgarh
           </p>
@@ -147,7 +164,7 @@ export default async function HomePage() {
               <Input
                 className="h-12 rounded-lg bg-card pl-12"
                 name="q"
-                placeholder="Search for government schemes (e.g., Health, Education)..."
+                placeholder="Search for Government Schemes (e.g., Health, Education)..."
               />
             </span>
             <Button className="h-12 px-7" type="submit">
@@ -165,7 +182,10 @@ export default async function HomePage() {
               Browse all 8 official scheme categories from the district catalog.
             </p>
           </div>
-          <Link className="hidden text-sm font-semibold text-primary hover:underline md:block" href="/yojnas">
+          <Link
+            className="hidden text-sm font-semibold text-primary hover:underline md:block"
+            href="/yojnas"
+          >
             View all schemes
           </Link>
         </div>
