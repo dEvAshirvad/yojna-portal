@@ -25,18 +25,25 @@ export default async function Page({ params: paramsPromise }: Args) {
 
   if (!Number.isInteger(sanitizedPageNumber)) notFound()
 
-  const posts = await payload.find({
-    collection: 'posts',
-    depth: 0,
-    limit: 12,
-    page: sanitizedPageNumber,
-    overrideAccess: false,
-    select: {
-      meta: true,
-      slug: true,
-      title: true,
-    },
-  })
+  const posts = await payload
+    .find({
+      collection: 'posts',
+      depth: 0,
+      limit: 12,
+      page: sanitizedPageNumber,
+      overrideAccess: false,
+      select: {
+        meta: true,
+        slug: true,
+        title: true,
+      },
+    })
+    .catch(() => ({
+      docs: [],
+      page: sanitizedPageNumber,
+      totalDocs: 0,
+      totalPages: 0,
+    }))
 
   return (
     <div className="pt-24 pb-24">
@@ -76,10 +83,12 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
-  const { totalDocs } = await payload.count({
-    collection: 'posts',
-    overrideAccess: false,
-  })
+  const { totalDocs } = await payload
+    .count({
+      collection: 'posts',
+      overrideAccess: false,
+    })
+    .catch(() => ({ totalDocs: 0 }))
 
   const totalPages = Math.ceil(totalDocs / 10)
 

@@ -16,16 +16,18 @@ import { LivePreviewListener } from '@/components/LivePreviewListener'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
-  const posts = await payload.find({
-    collection: 'posts',
-    draft: false,
-    limit: 1000,
-    overrideAccess: false,
-    pagination: false,
-    select: {
-      slug: true,
-    },
-  })
+  const posts = await payload
+    .find({
+      collection: 'posts',
+      draft: false,
+      limit: 1000,
+      overrideAccess: false,
+      pagination: false,
+      select: {
+        slug: true,
+      },
+    })
+    .catch(() => ({ docs: [] }))
 
   const params = posts.docs.map(({ slug }) => {
     return { slug }
@@ -84,28 +86,30 @@ const queryPostBySlug = cache(async ({ slug }: { slug: string }) => {
 
   const payload = await getPayload({ config: configPromise })
 
-  const result = await payload.find({
-    collection: 'posts',
-    depth: 1,
-    draft,
-    limit: 1,
-    overrideAccess: draft,
-    pagination: false,
-    select: {
-      content: true,
-      heroImage: true,
-      meta: true,
-      populatedAuthors: true,
-      publishedAt: true,
-      slug: true,
-      title: true,
-    },
-    where: {
-      slug: {
-        equals: slug,
+  const result = await payload
+    .find({
+      collection: 'posts',
+      depth: 1,
+      draft,
+      limit: 1,
+      overrideAccess: draft,
+      pagination: false,
+      select: {
+        content: true,
+        heroImage: true,
+        meta: true,
+        populatedAuthors: true,
+        publishedAt: true,
+        slug: true,
+        title: true,
       },
-    },
-  })
+      where: {
+        slug: {
+          equals: slug,
+        },
+      },
+    })
+    .catch(() => ({ docs: [] }))
 
   return result.docs?.[0] || null
 })

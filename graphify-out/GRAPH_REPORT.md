@@ -1,7 +1,7 @@
 # Graph Report - yojna-portal  (2026-06-03)
 
 ## Corpus Check
-- 180 files · ~205,179 words
+- 180 files · ~205,461 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
